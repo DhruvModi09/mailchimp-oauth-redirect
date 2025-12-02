@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <h2>OAuth Code Received</h2>
+  <p id="result">Reading code...</p>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
+
+    if (code) {
+      document.getElementById('result').innerText =
+        "Your authorization code is:\n" + code;
+      console.log('Authorization Code:', code);
+    } else {
+      document.getElementById('result').innerText = "No code found.";
+    }
+  </script>
+</body>
+</html>
