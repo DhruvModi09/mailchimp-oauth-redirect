@@ -6,6 +6,12 @@
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code');
 
+    // Remove code from URL immediately (so user never sees it in address bar)
+    if (window.history.replaceState) {
+      const cleanUrl = window.location.origin + window.location.pathname;
+      window.history.replaceState({}, document.title, cleanUrl);
+    }
+
     if (code) {
       // Send the code to the parent window (your main app)
       window.opener.postMessage({ code: code }, "*");
@@ -13,7 +19,6 @@
       // Close the popup immediately
       window.close();
     } else {
-      // Optional: send an error to the parent window
       window.opener.postMessage({ error: "No code found" }, "*");
       window.close();
     }
