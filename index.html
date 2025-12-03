@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html>
 <body>
-  <h2>OAuth Code Received</h2>
-  <p id="result">Reading code...</p>
-
   <script>
+    // Get the 'code' from the URL
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code');
 
     if (code) {
-      document.getElementById('result').innerText =
-        "Your authorization code is:\n" + code;
-      console.log('Authorization Code:', code);
+      // Send the code to the parent window (your main app)
+      window.opener.postMessage({ code: code }, "*");
+
+      // Close the popup immediately
+      window.close();
     } else {
-      document.getElementById('result').innerText = "No code found.";
+      // Optional: send an error to the parent window
+      window.opener.postMessage({ error: "No code found" }, "*");
+      window.close();
     }
   </script>
 </body>
