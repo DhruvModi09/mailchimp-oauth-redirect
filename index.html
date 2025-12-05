@@ -47,7 +47,7 @@
 
 <script>
     const CLIENT_ID = '561221191409'; // Your Mailchimp Client ID
-    const REDIRECT_URI = 'https://dhruvmodi09.github.io/mailChimp-oauth-redirect/redirect.html';
+    const REDIRECT_URI = 'https://dhruvmodi09.github.io/MailChimp-oauth-redirect/redirect.html';
 
     document.getElementById('authorizeBtn').addEventListener('click', () => {
         const oauthUrl = `https://login.mailchimp.com/oauth2/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=audience_read%20campaign_read`;
