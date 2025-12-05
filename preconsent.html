@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mailchimp Pre-Consent Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+    body { font-family: 'Inter', sans-serif; margin:0; background: #f0f2f5; display:flex; justify-content:center; align-items:center; height:100vh; }
+    .modal { background: #fff; border-radius: 12px; max-width: 500px; width: 90%; padding: 30px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); text-align:center; }
+    h1 { margin-bottom:10px; font-size:24px; color:#333; }
+    p { color:#555; margin-bottom:20px; font-size:16px; }
+    ul { text-align:left; margin-bottom:20px; padding-left:20px; }
+    li { display:flex; align-items:center; margin-bottom:10px; font-size:15px; }
+    li span { margin-right:10px; font-size:18px; }
+    .warning { background:#fff3cd; color:#856404; padding:10px 15px; border-radius:8px; margin-bottom:25px; display:flex; align-items:center; gap:8px; font-size:14px; }
+    .buttons { display:flex; justify-content:center; gap:15px; }
+    .btn { padding:12px 20px; border-radius:8px; font-weight:600; cursor:pointer; border:none; font-size:16px; transition:all 0.2s ease; }
+    .btn-primary { background-color:#007CBA; color:#fff; }
+    .btn-primary:hover { background-color:#005f8a; }
+    .btn-secondary { background-color:#e0e0e0; color:#333; }
+    .btn-secondary:hover { background-color:#cfcfcf; }
+</style>
+</head>
+<body>
+
+<div class="modal">
+    <h1>Connect Your Mailchimp Account</h1>
+    <p>We need access to your Mailchimp account to provide [feature]. We will only <strong>read your data</strong> and <strong>will not modify anything</strong>.</p>
+
+    <ul>
+        <li><span>✅</span> Read audience lists</li>
+        <li><span>✅</span> View campaigns & reports</li>
+        <li><span>❌</span> Will NOT modify campaigns or contacts</li>
+        <li><span>❌</span> Will NOT delete anything</li>
+    </ul>
+
+    <div class="warning">
+        ⚠️ Mailchimp may show “read and change your account data” on its consent screen. Our app only requests read-only access.
+    </div>
+
+    <div class="buttons">
+        <button class="btn btn-primary" id="authorizeBtn">Authorize with Mailchimp</button>
+        <button class="btn btn-secondary" onclick="alert('Demo cancelled');">Cancel</button>
+    </div>
+</div>
+
+<script>
+    const CLIENT_ID = 'YOUR_CLIENT_ID'; // Replace with your Mailchimp Client ID
+    const REDIRECT_URI = 'https://username.github.io/your-repo/redirect.html'; // Replace with your hosted redirect.html URL
+
+    document.getElementById('authorizeBtn').addEventListener('click', () => {
+        const oauthUrl = `https://login.mailchimp.com/oauth2/authorize?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=audience_read%20campaign_read`;
+        window.location.href = oauthUrl;
+    });
+</script>
+
+</body>
+</html>
