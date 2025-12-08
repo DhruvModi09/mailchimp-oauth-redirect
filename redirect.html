@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OAuth Code Received</title>
-<style>
-    body { font-family: Arial, sans-serif; display:flex; justify-content:center; align-items:center; height:100vh; margin:0; background:#f9f9f9; text-align:center; }
-    .container { background:#fff; padding:30px; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.1); max-width:500px; width:90%; }
-    h2 { margin-bottom:15px; }
-    pre { background:#f0f0f0; padding:15px; border-radius:8px; white-space:pre-wrap; word-break:break-word; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding-top: 50px; }
+    </style>
 </head>
 <body>
-<div class="container">
-    <h2>OAuth Code Received</h2>
-    <p id="result">Reading code...</p>
-    <pre id="codeBox"></pre>
-</div>
+    <p>Redirecting you back to the application...</p>
+    
+    <script>
+        // 1. Get parameters from the URL
+        const params = new URLSearchParams(window.location.search);
+        const code = params.get('code');
+        const state = params.get('state'); // This contains your localhost URL
 
-<script>
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get('code');
-
-    if (code) {
-        document.getElementById('result').innerText = "Authorization code received!";
-        document.getElementById('codeBox').innerText = code;
-        console.log('Authorization Code:', code);
-    } else {
-        document.getElementById('result').innerText = "No code found.";
-    }
-</script>
+        if (state && code) {
+            // 2. Construct the return URL
+            const returnUrl = decodeURIComponent(state);
+            
+            // Check if returnUrl already has query params to append correctly
+            const separator = returnUrl.includes('?') ? '&' : '?';
+            
+            // 3. Redirect back to localhost with the code attached
+            window.location.href = returnUrl + separator + "code=" + code;
+        } else {
+            document.body.innerHTML = "<h3>Error: No redirection state found.</h3><p>Please close this window and try again.</p>";
+        }
+    </script>
 </body>
 </html>
